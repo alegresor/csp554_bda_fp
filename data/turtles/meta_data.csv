@@ -21,7 +21,7 @@ CCL_tip,curved carapace length measured from tip to tip in cm
 CCW,curved carapace width in cm
 Circumference,body depth of turtle measured with tape measure in cm
 Girth,"body depth of turtle measured with calipers, at highest point of carapace in cm"
-Depth_ mid,"body depth of turtle measured with calipers, at mid-point of carapace in cm"
+Depth_mid,"body depth of turtle measured with calipers, at mid-point of carapace in cm"
 Tail,total length of tail in cm
 Weight,weight of turtle in kilograms
 Cap_Region,region (estuary or ocean) where turtle was captured
