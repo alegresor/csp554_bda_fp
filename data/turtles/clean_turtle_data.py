@@ -33,8 +33,8 @@ df['Gear'].replace(
 #    numeric columns
 for col in ['SCL_notch','SCL_tip','SCW','CCL_notch','TestLevel_Before']:
     df[col].replace({0:nan},inplace=True) # 0 is put in instead of na --> correct to na
-    medians = df.groupby('Species')[col].transform('median')
-    df[col].fillna(medians,inplace=True)
+    medians = df.groupby('Species')[col].transform('median') # get median by species
+    df[col].fillna(medians,inplace=True) # fill na with species median 
 #    Entangled
 df['Entangled'].replace({True:'Entangled',False:'Free'},inplace=True) # make object from boolean
 
@@ -54,4 +54,4 @@ for col in df.columns:
 print(df.head())
 
 # export dataframe
-df.to_csv('data/turtles/tagged_turtles_clean.csv')
+df.to_csv('data/turtles/tagged_turtles_clean.csv',index=False,header=False)

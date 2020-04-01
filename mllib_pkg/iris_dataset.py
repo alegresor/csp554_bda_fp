@@ -24,9 +24,8 @@ struct = StructType([
     StructField('petal_width', FloatType(), True),
     StructField('species', StringType(), True)])
 df = spark.read.schema(struct).csv('data/iris.csv',header=False)
-if verbose:
-    df.printSchema()
-    print(df.take(1))
+df.printSchema()
+print(df.show(5))
 
 # one hot encoding
 df = encode_classifier_data(df, 
