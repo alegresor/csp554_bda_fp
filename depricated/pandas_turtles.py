@@ -1,8 +1,16 @@
+'''
+Clean dataset with pandas
+command to create log: python depricated/pandas_turtles.py > depricated/logs/pandas_turtles.log
+'''
+
+# imports
 import pandas as pd 
 from numpy import *
 
-df = pd.read_csv('data/turtles/tagged_turtles.csv')
+# read dataframe
+df = pd.read_csv('data/turtles/turtles.csv')
 
+# select subset of columns
 df = df[['Species',
         'Dead_Alive',
         'Gear',
@@ -25,7 +33,7 @@ df = df[['Species',
 df.dropna(subset=['Species'],inplace=True) # drop any record without a species label
 df = df.loc[df['Species'].isin(['Loggerhead','Green','Kemps_Ridley'])] # other species have < 10 total tags
 #    Dead_Alive
-df['Dead_Alive'].replace({'alive':'Alive'},inplace=True) # correct capitalization
+df['Dead_Alive'].replace({'Alive':'alive','Dead':'dead'},inplace=True) # correct capitalization
 #    Gear
 df['Gear'].replace(
     {cat:'Other' for cat in ['Shrimp trawl','General public sighting','Channel net','Headstart','Flounder trawl']},
@@ -33,10 +41,10 @@ df['Gear'].replace(
 #    numeric columns
 for col in ['SCL_notch','SCL_tip','SCW','CCL_notch','TestLevel_Before']:
     df[col].replace({0:nan},inplace=True) # 0 is put in instead of na --> correct to na
-    medians = df.groupby('Species')[col].transform('median') # get median by species
-    df[col].fillna(medians,inplace=True) # fill na with species median 
+    means = df.groupby('Species')[col].transform('mean') # get mean by species
+    df[col].fillna(means,inplace=True) # fill na with species mean 
 #    Entangled
-df['Entangled'].replace({True:'Entangled',False:'Free'},inplace=True) # make object from boolean
+df['Entangled'].replace({True:'entangled',False:'free'},inplace=True) # make object from boolean
 
 # summarize data
 for col in df.columns:
@@ -54,4 +62,4 @@ for col in df.columns:
 print(df.head())
 
 # export dataframe
-df.to_csv('data/turtles/tagged_turtles_clean.csv',index=False,header=False)
+df.to_csv('data/turtles/turtles_clean_pandas.csv',index=False,header=False)

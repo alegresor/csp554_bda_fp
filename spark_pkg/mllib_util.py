@@ -1,3 +1,6 @@
+''' Utility functions for spark_pkg '''
+
+# imports
 from pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler
 from pyspark.ml import Pipeline
 

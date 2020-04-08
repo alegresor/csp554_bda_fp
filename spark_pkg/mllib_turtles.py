@@ -1,3 +1,8 @@
+'''
+MLlib models for turtles dataset
+command to create log: 
+'''
+
 # imports
 #    pyspark general
 from pyspark.sql import SparkSession
@@ -6,32 +11,35 @@ from pyspark.sql.types import *
 from pyspark.ml.classification import LogisticRegression,RandomForestClassifier,NaiveBayes,MultilayerPerceptronClassifier
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 #    local
-from mllib_pkg.util import encode_classifier_data
+from spark_pkg.mllib_util import encode_classifier_data
 
 
 # setup
-spark = SparkSession.builder.appName('iris-app').getOrCreate()
+spark = SparkSession.builder.master("local").appName('mllib_turtles').getOrCreate()
 spark.sparkContext.setLogLevel('ERROR') # only show pyspark errors
-
 print('\n'*5)
 verbose = False
 
 # read data
-struct = StructType([
-    StructField('sepal_length', FloatType(), True),
-    StructField('sepal_width', FloatType(), True),
-    StructField('petal_length', FloatType(), True),
-    StructField('petal_width', FloatType(), True),
-    StructField('species', StringType(), True)])
-df = spark.read.schema(struct).csv('data/iris.csv',header=False)
+struct = StructType([    
+    StructField('Species', StringType(), True),
+    StructField('Dead_Alive', StringType(), True),
+    StructField('Gear', StringType(), True),
+    StructField('SCL_notch', FloatType(), True),    
+    StructField('SCL_tip', FloatType(), True),    
+    StructField('SCW', FloatType(), True),    
+    StructField('CCL_notch', FloatType(), True),    
+    StructField('TestLevel_Before', FloatType(), True),    
+    StructField('Entangled', StringType(), True)])
+df = spark.read.schema(struct).csv('data/turtles/turtles_clean_spark_sql.csv',header=False)
 df.printSchema()
 print(df.show(5))
 
 # one hot encoding
 df = encode_classifier_data(df, 
-    label_col = 'species',
-    categorical_cols = [],
-    numeric_cols = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width'])
+    label_col = 'Species',
+    categorical_cols = ['Dead_Alive','Gear','Entangled'],
+    numeric_cols = ['SCL_notch', 'SCL_tip', 'SCW', 'CCL_notch','TestLevel_Before'])
 
 # split into train and test datsets
 train,test = df.randomSplit([.75,.25], seed=7)
