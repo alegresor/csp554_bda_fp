@@ -58,4 +58,4 @@ for col_str in df.schema.names:
 # output dataset
 df.printSchema()
 df.show(20)
-df.write.mode('overwrite').csv('data/turtles/turtles_clean_spark_sql.csv',header=False,)
+df.write.mode('overwrite').csv('data/turtles/turtles_clean_spark_sql.csv',header=False)
