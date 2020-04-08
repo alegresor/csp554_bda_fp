@@ -10,7 +10,7 @@
 ---
 
 ## Setup 
-Make sure `csp554_bdt_fp` is on you python path, this is easiest with a virtual environment.\
+Make sure `csp554_bdt_fp/` is on you python path, this is easiest with a virtual environment.\
 Run the command `pip install -r requirements.txt` to install necessary python packages. 
 
 ---
@@ -27,8 +27,8 @@ Run the command `pip install -r requirements.txt` to install necessary python pa
 - `sql_turtles.py` clean turtles dataset with pyspark sql
 - `mllib_turtles.py` train and test pyspark mllib models on turtles dataset
 - `mllib_util.py` utility functions with pyspark sql used in mllib_*.py files
-- `logs\` output logs from *.py files
+- `logs/` output logs from *.py files
 
 `depricated/`
 - `pandas_turtles.py` clean turtles dataset with pandas
-- `logs\` output logs from *.py files
+- `logs/` output logs from *.py files

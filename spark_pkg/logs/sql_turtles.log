@@ -1,0 +1,134 @@
+col: Species
++------------+--------+
+|     Species|count(1)|
++------------+--------+
+|  Loggerhead|   10786|
+|Kemps_Ridley|     790|
+|       Green|    1850|
++------------+--------+
+
+col: Dead_Alive
++----------+--------+
+|Dead_Alive|count(1)|
++----------+--------+
+|     alive|   12590|
+|      dead|     836|
++----------+--------+
+
+col: Gear
++----------------+--------+
+|            Gear|count(1)|
++----------------+--------+
+|   Hook and line|      17|
+|Leased Pound Net|     272|
+|   Skimmer Trawl|      22|
+|   Hand captured|      12|
+|           other|      25|
+|        Gill net|     399|
+|       Long haul|     266|
+|  Dead Stranding|     235|
+|    Entanglement|      15|
+|       Pound net|   12075|
+|  Live stranding|      88|
++----------------+--------+
+
+col: SCL_notch
++-------+------------------+
+|summary|         SCL_notch|
++-------+------------------+
+|  count|             13426|
+|   mean| 57.05433230686946|
+| stddev|13.463587341429866|
+|    min|              20.3|
+|    max|             106.4|
++-------+------------------+
+
+col: SCL_tip
++-------+------------------+
+|summary|           SCL_tip|
++-------+------------------+
+|  count|             13426|
+|   mean|58.192652816809606|
+| stddev| 13.88826505746646|
+|    min|              20.6|
+|    max|             108.1|
++-------+------------------+
+
+col: SCW
++-------+------------------+
+|summary|               SCW|
++-------+------------------+
+|  count|             13426|
+|   mean| 47.92685954006461|
+| stddev|10.931104215410189|
+|    min|               5.0|
+|    max|              96.0|
++-------+------------------+
+
+col: CCL_notch
++-------+------------------+
+|summary|         CCL_notch|
++-------+------------------+
+|  count|             13426|
+|   mean| 61.52314574964158|
+| stddev|14.709901958116856|
+|    min|              21.7|
+|    max|             111.5|
++-------+------------------+
+
+col: TestLevel_Before
++-------+------------------+
+|summary|  TestLevel_Before|
++-------+------------------+
+|  count|             13426|
+|   mean| 357.2891519466819|
+| stddev|1026.3531782442183|
+|    min|               0.1|
+|    max|           77450.0|
++-------+------------------+
+
+col: Entangled
++---------+--------+
+|Entangled|count(1)|
++---------+--------+
+|     free|   13402|
+|entangled|      24|
++---------+--------+
+
+root
+ |-- Species: string (nullable = true)
+ |-- Dead_Alive: string (nullable = true)
+ |-- Gear: string (nullable = true)
+ |-- SCL_notch: double (nullable = true)
+ |-- SCL_tip: double (nullable = true)
+ |-- SCW: double (nullable = true)
+ |-- CCL_notch: double (nullable = true)
+ |-- TestLevel_Before: double (nullable = true)
+ |-- Entangled: string (nullable = true)
+
++----------+----------+---------+-----------------+-----------------+----------------+-----------------+------------------+---------+
+|   Species|Dead_Alive|     Gear|        SCL_notch|          SCL_tip|             SCW|        CCL_notch|  TestLevel_Before|Entangled|
++----------+----------+---------+-----------------+-----------------+----------------+-----------------+------------------+---------+
+|Loggerhead|     alive| Gill net|             45.9|             46.4|            39.8|             49.4|406.42322350139176|     free|
+|Loggerhead|     alive| Gill net|             45.9|             46.4|            39.8|             49.4|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             58.2|             59.4|            49.5|             63.7|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             58.2|             59.4|            49.5|             63.7|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             63.1|             64.6|            57.9|             70.2|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             63.1|             64.6|            57.9|             70.2|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             52.0|             53.1|            44.2|             56.5|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             52.0|             53.1|            44.2|             56.5|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             52.0|             53.1|            44.2|             56.5|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             52.0|             53.1|            44.2|             56.5|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             52.0|             53.1|            44.2|             56.5|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             52.0|             53.1|            44.2|             56.5|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             50.7|             51.6|            42.9|             54.0|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|             50.7|             51.6|            42.9|             54.0|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|62.71590169859083|             72.2|            58.3|67.84029089053357|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|62.71590169859083|             72.2|            58.3|67.84029089053357|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|62.71590169859083|64.00230193970576|52.4614280672862|67.84029089053357|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|62.71590169859083|64.00230193970576|52.4614280672862|67.84029089053357|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|62.71590169859083|64.00230193970576|52.4614280672862|67.84029089053357|406.42322350139176|     free|
+|Loggerhead|     alive|Pound net|62.71590169859083|64.00230193970576|52.4614280672862|67.84029089053357|406.42322350139176|     free|
++----------+----------+---------+-----------------+-----------------+----------------+-----------------+------------------+---------+
+only showing top 20 rows
+

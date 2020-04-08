@@ -1,0 +1,32 @@
+
+
+
+
+
+
+root
+ |-- Species: string (nullable = true)
+ |-- Dead_Alive: string (nullable = true)
+ |-- Gear: string (nullable = true)
+ |-- SCL_notch: float (nullable = true)
+ |-- SCL_tip: float (nullable = true)
+ |-- SCW: float (nullable = true)
+ |-- CCL_notch: float (nullable = true)
+ |-- TestLevel_Before: float (nullable = true)
+ |-- Entangled: string (nullable = true)
+
++----------+----------+---------+---------+-------+----+---------+----------------+---------+
+|   Species|Dead_Alive|     Gear|SCL_notch|SCL_tip| SCW|CCL_notch|TestLevel_Before|Entangled|
++----------+----------+---------+---------+-------+----+---------+----------------+---------+
+|Loggerhead|     alive| Gill net|     45.9|   46.4|39.8|     49.4|       406.42322|     free|
+|Loggerhead|     alive| Gill net|     45.9|   46.4|39.8|     49.4|       406.42322|     free|
+|Loggerhead|     alive|Pound net|     58.2|   59.4|49.5|     63.7|       406.42322|     free|
+|Loggerhead|     alive|Pound net|     58.2|   59.4|49.5|     63.7|       406.42322|     free|
+|Loggerhead|     alive|Pound net|     63.1|   64.6|57.9|     70.2|       406.42322|     free|
++----------+----------+---------+---------+-------+----+---------+----------------+---------+
+only showing top 5 rows
+
+None
+Logistic Regression       Accuracy: 0.988
+Random Forest             Accuracy: 0.959
+Naive Bayes               Accuracy: 0.689
