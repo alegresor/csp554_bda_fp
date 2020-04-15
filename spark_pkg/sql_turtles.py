@@ -3,8 +3,6 @@ Clean dataset with spark sql
 command to create log: python spark_pkg/sql_turtles.py > spark_pkg/logs/sql_turtles.log 
 '''
 
-# imports
-#    pyspark general
 from pyspark.sql import SparkSession, SQLContext, Window
 from pyspark.sql.types import *
 import pyspark.sql.functions as f

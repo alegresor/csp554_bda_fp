@@ -3,11 +3,8 @@ MLlib models for iris dataset
 command to create log: python spark_pkg/mllib_iris.py > spark_pkg/logs/mllib_iris.log
 '''
 
-# imports
-#    pyspark general
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
-#    local
 from spark_pkg.mllib_util import encode_classifier_data, model
 
 # setup
