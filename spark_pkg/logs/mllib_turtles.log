@@ -1,9 +1,3 @@
-
-
-
-
-
-
 root
  |-- Species: string (nullable = true)
  |-- Dead_Alive: string (nullable = true)
@@ -26,7 +20,18 @@ root
 +----------+----------+---------+---------+-------+----+---------+----------------+---------+
 only showing top 5 rows
 
-None
-Logistic Regression       Accuracy: 0.988
-Random Forest             Accuracy: 0.959
-Naive Bayes               Accuracy: 0.689
+Logistic Regression
+	       accuracy: 0.988
+	 weightedRecall: 0.988
+	weightedPrecision: 0.988
+	             f1: 0.988
+Random Forest
+	       accuracy: 0.962
+	 weightedRecall: 0.962
+	weightedPrecision: 0.961
+	             f1: 0.959
+Naive Bayes
+	       accuracy: 0.625
+	 weightedRecall: 0.625
+	weightedPrecision: 0.819
+	             f1: 0.689
