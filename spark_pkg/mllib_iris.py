@@ -5,11 +5,11 @@ command to create log: python spark_pkg/mllib_iris.py > spark_pkg/logs/mllib_iri
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
-from spark_pkg.mllib_util import encode_classifier_data, model
+from spark_pkg.mllib_util import encode_data, run_classification_models
 
 # setup
 spark = SparkSession.builder.master("local").appName('iris-app').getOrCreate()
-spark.sparkContext.setLogLevel('ERROR') # only show pyspark errors
+spark.sparkContext.setLogLevel('ERROR')
 
 # read data
 struct = StructType([
@@ -23,13 +23,14 @@ df.printSchema()
 df.show(5)
 
 # one hot encoding
-df = encode_classifier_data(df, 
-    label_col = 'species',
-    categorical_cols = [],
-    numeric_cols = ['sepal_length', 'sepal_width', 'petal_length', 'petal_width'])
+df = encode_data(df,
+        categorical_cols = [],
+        numeric_cols = [col for col,dtype in df.dtypes if dtype=='float'],
+        predict_col = 'species',
+        encode_predict_col = True)
 
 # split into train and test datsets
 train,test = df.randomSplit([.75,.25], seed=7)
 
 # modeling
-model(train,test,'data/iris/iris_model_metrics.csv')
+run_classification_models(train,test,'data/iris/iris_model_metrics.csv',classes=3)

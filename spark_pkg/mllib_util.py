@@ -1,73 +1,121 @@
-''' Utility functions for spark_pkg '''
+''' Utility functions for spark_pkg/mllib_*.py '''
 
 from pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler
 from pyspark.ml import Pipeline
-from pyspark.ml.classification import LogisticRegression,RandomForestClassifier,NaiveBayes,MultilayerPerceptronClassifier
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+from pyspark.ml.classification import *
+from pyspark.ml.regression import *
+from pyspark.ml.tuning import CrossValidator,ParamGridBuilder,TrainValidationSplit
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator,RegressionEvaluator
 
-def encode_classifier_data(df, label_col, categorical_cols, numeric_cols):
+
+def encode_data(df, categorical_cols, numeric_cols, predict_col, encode_predict_col):
     """
-    From: https://towardsdatascience.com/machine-learning-with-pyspark-and-mllib-solving-a-binary-classification-problem-96396065d2aa
     Args:
-        label_col (string): label column to be one-hot encoded
-        categorical_cols (list): list of collumns to be one-hot encoded (does not include label_col)
+        categorical_cols (list): list of collumns to be one-hot encoded (does not include predict_col for classification)
         numeric_cols (list): numeric columns
+        predict_col (string): attribute to predict
+        encode_predict_col (boolean): should the predict_col be encoded (classification) or not (regression)
     Returns:
-        dataframe with new columns 'label' (one hot encoded) and 'features' (includes numeric and one hot encoded variables)
+        DataFrame with columns
+            'label': one hot encoded label column for classification. Not included for regression
+            'features': numeric and one hot encoded variables. Included for both classificaiton and regression
     """
-    # one hot encoding
     cols = df.columns
     stages = []
+    # one hot encoding stages for categorical predictor variables
     for categoricalCol in categorical_cols:
         stringIndexer = StringIndexer(inputCol = categoricalCol, outputCol = categoricalCol + 'Index')
         encoder = OneHotEncoderEstimator(inputCols=[stringIndexer.getOutputCol()], outputCols=[categoricalCol + "classVec"])
         stages += [stringIndexer, encoder]
-    label_stringIdx = StringIndexer(inputCol = label_col, outputCol = 'label')
-    stages += [label_stringIdx]
+    # possibly one hot encode the predict_col if this is a classification problem
+    predict_col_tf = predict_col
+    if encode_predict_col:
+        predict_col_tf = 'label'
+        predict_col_stringIdx = StringIndexer(inputCol = predict_col, outputCol=predict_col_tf)
+        stages += [predict_col_stringIdx]
     assemblerInputs = [c + "classVec" for c in categorical_cols] + numeric_cols
     assembler = VectorAssembler(inputCols=assemblerInputs, outputCol="features")
     stages += [assembler]
-    # pipeline
+    # pipeline stages
     pipeline = Pipeline(stages = stages)
     pipelineModel = pipeline.fit(df)
     df = pipelineModel.transform(df)
-    selectedCols = ['label', 'features'] + cols
+    # return appropriote subset of DataFrame
+    selectedCols = [predict_col_tf,'features']
     df = df.select(selectedCols)
     return df
 
-def model(train,test,metric_file_path):
+def evaluate_models(models,train,test,metric_file_path,Evaluator,metric_names):
     """
-    Modeling and metric aggregation
+    Evaluate list of models
+    Args:
+        models (list): list of models s.t. predictoins = models[i].transform(test)
+        train (DataFrame): training dataset
+        test (DataFrame): testing dataset
+        metric_file_path (str): path to file to output metrics
+        Evaluator (from pyspark.ml.evaluation): handle of an evaluator
+        metric_names (list): list of metric names for evaluator to evaluate
+    """
+    f = open(metric_file_path,'w')
+    f.write('model,'+','.join(metric_names)+'\n')
+    for model in models:
+        model_name = type(model).__name__
+        metric_vals = [None]*len(metric_names)
+        predictions = model.fit(train).transform(test)
+        print model_name
+        for i in range(len(metric_names)):
+            metric_vals[i] = Evaluator(metricName=metric_names[i]).evaluate(predictions)
+            print '\t%15s: %.3f'%(metric_names[i],metric_vals[i])
+        f.write(model_name+','+','.join(str(val) for val in metric_vals)+'\n')
+    f.close()
+
+def run_classification_models(train,test,metric_file_path,classes):
+    """
+    Modeling and metrics for classification models
     Args:
         train (DataFrame): training dataset
         test (DataFrame): testing dataset
         metric_file_path (str): path to file to output metrics
+        classes (int): number of unique labels
+    Note:
+        Did not train MultilayerPerceptronClassifier is it requires feature size and output
+        size and therefore does not generalize well to our vanilla/black-box testing
     """
-    evaluator = MulticlassClassificationEvaluator(predictionCol="prediction")
+    models = []
+    models.append( LogisticRegression() )
+    models.append( DecisionTreeClassifier(seed=7) )
+    models.append( RandomForestClassifier(seed=7) )
+    models.append( OneVsRest(classifier=LogisticRegression()) )
+    models.append( NaiveBayes() )
+    if classes==2:
+        models.append( GBTClassifier(seed=7) )
+        models.append( LinearSVC() )
     metric_names = ['accuracy','weightedRecall','weightedPrecision','f1']
-    f = open(metric_file_path,'w')
-    f.write('model,'+','.join(metric_names)+'\n')
-    def get_model_metrics(model_name,predictions):
-        metric_vals = [None]*len(metric_names)
-        print model_name
-        for i in range(len(metric_names)):
-            metric_vals[i] = evaluator.evaluate(predictions,{evaluator.metricName: metric_names[i]})
-            print '\t%15s: %.3f'%(metric_names[i],metric_vals[i])
-        f.write(model_name+','+','.join(str(val) for val in metric_vals)+'\n')
-    # logistic regression
-    lr_model = LogisticRegression().fit(train)
-    lr_predictions = lr_model.transform(test)
-    # uncomment below for advanced logistic regression metrics
-    '''print(lr_model.coefficientMatrix)
-    print(lr_model.interceptVector)
-    lr_predictions.select('label','rawPrediction','prediction','probability').show(10)'''
-    get_model_metrics('Logistic Regression',lr_predictions)
-    # random forest
-    rf_model = RandomForestClassifier(numTrees=3,maxDepth=2,seed=7).fit(train)
-    rf_predictions = rf_model.transform(test)
-    get_model_metrics('Random Forest',rf_predictions)
-    #  naive bayes
-    nb_model = NaiveBayes(smoothing=1.0, modelType="multinomial").fit(train)
-    nb_predictions = nb_model.transform(test)
-    get_model_metrics('Naive Bayes',nb_predictions)
-    f.close()
+    evaluate_models(models,train,test,metric_file_path,MulticlassClassificationEvaluator,metric_names)
+
+def run_regression_models(train,test,metric_file_path):
+    """
+    Modeling and metrics for regression models
+    Args:
+        train (DataFrame): training dataset
+        test (DataFrame): testing dataset
+        metric_file_path (str): path to file to output metrics
+    Note:
+        Did not train IsotonicRegression is it requires wieghts column
+        which does not generalize well to our vanilla/black-box testing
+    """
+    models = []
+    # linear regression with cross validation
+    lr = LinearRegression(maxIter=10)
+    paramGrid = ParamGridBuilder()\
+        .addGrid(lr.regParam, [0.001,0.001,.05]) \
+        .addGrid(lr.fitIntercept, [False, True])\
+        .addGrid(lr.elasticNetParam,[0.0, 0.05, 1.0])\
+        .build()
+    tvs = TrainValidationSplit(estimator=lr,estimatorParamMaps=paramGrid,evaluator=RegressionEvaluator())
+    models.append( tvs )
+    models.append( DecisionTreeRegressor() )
+    models.append( RandomForestRegressor() )
+    models.append( GBTRegressor() )
+    metric_names = ['r2','rmse','mae']
+    evaluate_models(models,train,test,metric_file_path,RegressionEvaluator,metric_names)

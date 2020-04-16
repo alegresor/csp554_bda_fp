@@ -22,6 +22,8 @@ Run the command `pip install -r requirements.txt` to install necessary python pa
 - `turtles/` turtles datasets
   - [DATA.GOV turtles dataset homepage](https://catalog.data.gov/dataset/sea-turtle-population-study-in-the-coastal-waters-of-north-carolina-from-1988-06-07-to-2015-09-)
   - [National Centers for Environmental Information turtles dataset download page](https://www.nodc.noaa.gov/cgi-bin/OAS/prd/accession/download/162846)
+- `wine/` wine datasets
+  - [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/wine+quality)
 
 `spark_pkg/`
 - `mllib_iris.py` train and test pyspark mllib models on iris dataset

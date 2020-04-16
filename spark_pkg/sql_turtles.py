@@ -6,9 +6,11 @@ command to create log: python spark_pkg/sql_turtles.py > spark_pkg/logs/sql_turt
 from pyspark.sql import SparkSession, SQLContext, Window
 from pyspark.sql.types import *
 import pyspark.sql.functions as f
+from spark_pkg.sql_util import summarize_df
 
 # setup
 spark = SparkSession.builder.master("local").appName("sql_turtles").getOrCreate()
+spark.sparkContext.setLogLevel('ERROR')
 
 # read turtles dataset
 df = spark.read.csv('data/turtles/turtles.csv', header=True, inferSchema=True)
@@ -45,15 +47,7 @@ df = df.withColumn('Entangled',
             .replace(['true','false'], ['entangled', 'free'], subset='Entangled')
 
 # summarize data
-df.createOrReplaceTempView('dfsql')
-for col_str in df.schema.names:
-    print 'col:',col_str 
-    if col_str in numeric_cols:
-        df.describe(col_str).show()
-    else:
-        dftmp = spark.sql('select %s, count(*) from dfsql group by %s'%(col_str,col_str)).show()
+summarize_df(spark,df,numeric_cols)
 
 # output dataset
-df.printSchema()
-df.show(20)
 df.write.mode('overwrite').csv('data/turtles/turtles_clean_spark_sql.csv',header=False)
