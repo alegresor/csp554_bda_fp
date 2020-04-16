@@ -1,11 +1,8 @@
-'''
-MLlib models for wine dataset
-command to create log: python spark_pkg/mllib_wine.py > spark_pkg/logs/mllib_wine.log
-'''
+''' MLlib models for wine dataset '''
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
-from spark_pkg.mllib_util import encode_data, run_regression_models
+from spark_pkg.util.mllib import encode_data, run_regression_models
 
 # setup
 spark = SparkSession.builder.master("local").appName('mllib_wine').getOrCreate()

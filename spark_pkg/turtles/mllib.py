@@ -1,11 +1,8 @@
-'''
-MLlib models for turtles dataset
-command to create log: python spark_pkg/mllib_turtles.py > spark_pkg/logs/mllib_turtles.log
-'''
+''' MLlib models for turtles dataset '''
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
-from spark_pkg.mllib_util import encode_data, run_classification_models
+from spark_pkg.util.mllib import encode_data, run_classification_models
 
 # setup
 spark = SparkSession.builder.master("local").appName('mllib_turtles').getOrCreate()

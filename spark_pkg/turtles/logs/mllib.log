@@ -25,11 +25,21 @@ Logistic Regression
 	 weightedRecall: 0.988
 	weightedPrecision: 0.988
 	             f1: 0.988
+Decision Tree
+	       accuracy: 0.982
+	 weightedRecall: 0.982
+	weightedPrecision: 0.982
+	             f1: 0.982
 Random Forest
-	       accuracy: 0.962
-	 weightedRecall: 0.962
-	weightedPrecision: 0.961
-	             f1: 0.959
+	       accuracy: 0.973
+	 weightedRecall: 0.973
+	weightedPrecision: 0.972
+	             f1: 0.971
+One vs Rest
+	       accuracy: 0.990
+	 weightedRecall: 0.990
+	weightedPrecision: 0.990
+	             f1: 0.990
 Naive Bayes
 	       accuracy: 0.625
 	 weightedRecall: 0.625

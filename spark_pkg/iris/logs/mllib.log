@@ -21,7 +21,17 @@ Logistic Regression
 	 weightedRecall: 1.000
 	weightedPrecision: 1.000
 	             f1: 1.000
+Decision Tree
+	       accuracy: 0.957
+	 weightedRecall: 0.957
+	weightedPrecision: 0.957
+	             f1: 0.957
 Random Forest
+	       accuracy: 0.979
+	 weightedRecall: 0.979
+	weightedPrecision: 0.980
+	             f1: 0.979
+One vs Rest
 	       accuracy: 0.979
 	 weightedRecall: 0.979
 	weightedPrecision: 0.980

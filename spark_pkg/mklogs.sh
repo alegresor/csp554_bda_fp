@@ -1,0 +1,10 @@
+# iris
+python spark_pkg/iris/mllib.py > spark_pkg/iris/logs/mllib.log
+
+# turtle
+python spark_pkg/turtles/sql.py > spark_pkg/turtles/logs/sql.log
+python spark_pkg/turtles/mllib.py > spark_pkg/turtles/logs/mllib.log
+
+# wine
+python spark_pkg/wine/sql.py > spark_pkg/wine/logs/sql.log
+python spark_pkg/wine/mllib.py > spark_pkg/wine/logs/mllib.log

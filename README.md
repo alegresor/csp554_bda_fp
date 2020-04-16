@@ -17,20 +17,25 @@ Run the command `pip install -r requirements.txt` to install necessary python pa
 
 ## Files
 `data/` 
-- `iris/` iris datasets
+- `iris/` iris data
   - [UCI Machine Learning Repository](http://archive.ics.uci.edu/ml/datasets/iris)
-- `turtles/` turtles datasets
+- `turtles/` turtles data
   - [DATA.GOV turtles dataset homepage](https://catalog.data.gov/dataset/sea-turtle-population-study-in-the-coastal-waters-of-north-carolina-from-1988-06-07-to-2015-09-)
   - [National Centers for Environmental Information turtles dataset download page](https://www.nodc.noaa.gov/cgi-bin/OAS/prd/accession/download/162846)
-- `wine/` wine datasets
+- `wine/` wine data
   - [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/wine+quality)
 
 `spark_pkg/`
-- `mllib_iris.py` train and test pyspark mllib models on iris dataset
-- `sql_turtles.py` clean turtles dataset with pyspark sql
-- `mllib_turtles.py` train and test pyspark mllib models on turtles dataset
-- `mllib_util.py` utility functions used in mllib_*.py files
-- `logs/` output logs from *.py files
+- `util/` utility functions for `sql.py` and `mllib.py` files
+- `*/sql.py` use sql to clean dataset
+- `*/mllib.py` use mllib to create classification or regression models
+- `*/logs/` output logs from *.py files
+- `mklogs.sh` make logs for all `sql.py` and `mllib.py` files for all datasets
+  - give file permission with command:  `chmod +x spark_pkg/mklogs.sh`
+
+`explore_model_metrics.py` explore metrics output from various datasets and models
+
+`out/` outputs
 
 `depricated/`
 - `pandas_turtles.py` clean turtles dataset with pandas

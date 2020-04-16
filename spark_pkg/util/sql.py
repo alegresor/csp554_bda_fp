@@ -1,4 +1,4 @@
-''' Utility functions for spark_pkg/sql_*.py '''
+''' Utility functions for spark_pkg/*/sql.py '''
 
 def summarize_df(session,df,numeric_cols):
     """

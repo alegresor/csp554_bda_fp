@@ -1,12 +1,9 @@
-'''
-Clean dataset with spark sql
-command to create log: python spark_pkg/sql_turtles.py > spark_pkg/logs/sql_turtles.log 
-'''
+''' Clean dataset with spark sql '''
 
 from pyspark.sql import SparkSession, SQLContext, Window
 from pyspark.sql.types import *
 import pyspark.sql.functions as f
-from spark_pkg.sql_util import summarize_df
+from spark_pkg.util.sql import summarize_df
 
 # setup
 spark = SparkSession.builder.master("local").appName("sql_turtles").getOrCreate()

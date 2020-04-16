@@ -1,4 +1,4 @@
-''' Utility functions for spark_pkg/mllib_*.py '''
+''' Utility functions for spark_pkg/*/mllib.py '''
 
 from pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler
 from pyspark.ml import Pipeline
@@ -49,7 +49,9 @@ def evaluate_models(models,train,test,metric_file_path,Evaluator,metric_names):
     """
     Evaluate list of models
     Args:
-        models (list): list of models s.t. predictoins = models[i].transform(test)
+        models (list): list of models s.t. 
+            predictions = models[i][0].transform(test)
+            model_name = models[i][1]
         train (DataFrame): training dataset
         test (DataFrame): testing dataset
         metric_file_path (str): path to file to output metrics
@@ -58,8 +60,7 @@ def evaluate_models(models,train,test,metric_file_path,Evaluator,metric_names):
     """
     f = open(metric_file_path,'w')
     f.write('model,'+','.join(metric_names)+'\n')
-    for model in models:
-        model_name = type(model).__name__
+    for model,model_name in models:
         metric_vals = [None]*len(metric_names)
         predictions = model.fit(train).transform(test)
         print model_name
@@ -82,14 +83,14 @@ def run_classification_models(train,test,metric_file_path,classes):
         size and therefore does not generalize well to our vanilla/black-box testing
     """
     models = []
-    models.append( LogisticRegression() )
-    models.append( DecisionTreeClassifier(seed=7) )
-    models.append( RandomForestClassifier(seed=7) )
-    models.append( OneVsRest(classifier=LogisticRegression()) )
-    models.append( NaiveBayes() )
+    models.append(( LogisticRegression(), 'Logistic Regression' ))
+    models.append(( DecisionTreeClassifier(seed=7), 'Decision Tree' ))
+    models.append(( RandomForestClassifier(seed=7), 'Random Forest' ))
+    models.append(( OneVsRest(classifier=LogisticRegression()), 'One vs Rest' ))
+    models.append(( NaiveBayes(), 'Naive Bayes' ))
     if classes==2:
-        models.append( GBTClassifier(seed=7) )
-        models.append( LinearSVC() )
+        models.append(( GBTClassifier(seed=7), 'Gradient Boosted Trees' ))
+        models.append(( LinearSVC(), 'Linear Support Vector Machine'))
     metric_names = ['accuracy','weightedRecall','weightedPrecision','f1']
     evaluate_models(models,train,test,metric_file_path,MulticlassClassificationEvaluator,metric_names)
 
@@ -112,10 +113,10 @@ def run_regression_models(train,test,metric_file_path):
         .addGrid(lr.fitIntercept, [False, True])\
         .addGrid(lr.elasticNetParam,[0.0, 0.05, 1.0])\
         .build()
-    tvs = TrainValidationSplit(estimator=lr,estimatorParamMaps=paramGrid,evaluator=RegressionEvaluator())
-    models.append( tvs )
-    models.append( DecisionTreeRegressor() )
-    models.append( RandomForestRegressor() )
-    models.append( GBTRegressor() )
+    tvs = TrainValidationSplit(estimator=lr,estimatorParamMaps=paramGrid,evaluator=RegressionEvaluator(),seed=7)
+    models.append(( tvs, 'Linear Regression by Cross Validation' ))
+    models.append(( DecisionTreeRegressor(seed=7), 'Decision Tree' ))
+    models.append(( RandomForestRegressor(seed=7), 'Random Forest' ))
+    models.append(( GBTRegressor(seed=7), 'Gradient Boosted Trees' ))
     metric_names = ['r2','rmse','mae']
     evaluate_models(models,train,test,metric_file_path,RegressionEvaluator,metric_names)
