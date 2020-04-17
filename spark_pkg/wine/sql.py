@@ -1,6 +1,6 @@
 ''' Clean dataset with spark sql '''
 
-from pyspark.sql import SparkSession, SQLContext, Window
+from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 import pyspark.sql.functions as f
 from spark_pkg.util.sql import summarize_df
@@ -15,7 +15,6 @@ df_white = spark.read.csv('data/wine/winequality-white.csv', header=True, inferS
 
 # combine red and white wine datasets
 df = df_red.union(df_white)
-df.show(10)
 
 # summarize dataframe
 numeric_cols = ['fixed acidity','volatile acidity','citric acid','residual sugar','chlorides','free sulfur dioxide',

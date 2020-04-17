@@ -1,4 +1,4 @@
-''' MLlib models for wine dataset '''
+''' MLlib models '''
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *

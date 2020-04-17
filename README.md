@@ -24,6 +24,8 @@ Run the command `pip install -r requirements.txt` to install necessary python pa
   - [National Centers for Environmental Information turtles dataset download page](https://www.nodc.noaa.gov/cgi-bin/OAS/prd/accession/download/162846)
 - `wine/` wine data
   - [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/wine+quality)
+- `telco/` Telco data
+  - [Kaggle: Telco Customer Churn](https://www.kaggle.com/blastchar/telco-customer-churn/data)
 
 `spark_pkg/`
 - `util/` utility functions for `sql.py` and `mllib.py` files

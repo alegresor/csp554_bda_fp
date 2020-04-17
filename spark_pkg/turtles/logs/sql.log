@@ -1,36 +1,36 @@
 col: Species
-+------------+--------+
-|     Species|count(1)|
-+------------+--------+
-|  Loggerhead|   10786|
-|Kemps_Ridley|     790|
-|       Green|    1850|
-+------------+--------+
++------------+-----+
+|     Species|count|
++------------+-----+
+|  Loggerhead|10786|
+|Kemps_Ridley|  790|
+|       Green| 1850|
++------------+-----+
 
 col: Dead_Alive
-+----------+--------+
-|Dead_Alive|count(1)|
-+----------+--------+
-|     alive|   12590|
-|      dead|     836|
-+----------+--------+
++----------+-----+
+|Dead_Alive|count|
++----------+-----+
+|     alive|12590|
+|      dead|  836|
++----------+-----+
 
 col: Gear
-+----------------+--------+
-|            Gear|count(1)|
-+----------------+--------+
-|   Hook and line|      17|
-|Leased Pound Net|     272|
-|   Skimmer Trawl|      22|
-|   Hand captured|      12|
-|           other|      25|
-|        Gill net|     399|
-|       Long haul|     266|
-|  Dead Stranding|     235|
-|    Entanglement|      15|
-|       Pound net|   12075|
-|  Live stranding|      88|
-+----------------+--------+
++----------------+-----+
+|            Gear|count|
++----------------+-----+
+|   Hook and line|   17|
+|Leased Pound Net|  272|
+|   Skimmer Trawl|   22|
+|   Hand captured|   12|
+|           other|   25|
+|        Gill net|  399|
+|       Long haul|  266|
+|  Dead Stranding|  235|
+|    Entanglement|   15|
+|       Pound net|12075|
+|  Live stranding|   88|
++----------------+-----+
 
 col: SCL_notch
 +-------+------------------+
@@ -88,12 +88,12 @@ col: TestLevel_Before
 +-------+------------------+
 
 col: Entangled
-+---------+--------+
-|Entangled|count(1)|
-+---------+--------+
-|     free|   13402|
-|entangled|      24|
-+---------+--------+
++---------+-----+
+|Entangled|count|
++---------+-----+
+|     free|13402|
+|entangled|   24|
++---------+-----+
 
 root
  |-- Species: string (nullable = true)

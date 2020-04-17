@@ -2,11 +2,10 @@
 
 from pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler
 from pyspark.ml import Pipeline
-from pyspark.ml.classification import *
 from pyspark.ml.regression import *
+from pyspark.ml.classification import *
 from pyspark.ml.tuning import CrossValidator,ParamGridBuilder,TrainValidationSplit
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator,RegressionEvaluator
-
 
 def encode_data(df, categorical_cols, numeric_cols, predict_col, encode_predict_col):
     """
@@ -90,10 +89,10 @@ def run_classification_models(train,test,metric_file_path,classes):
     models.append(( NaiveBayes(), 'Naive Bayes' ))
     if classes==2:
         models.append(( GBTClassifier(seed=7), 'Gradient Boosted Trees' ))
-        models.append(( LinearSVC(), 'Linear Support Vector Machine'))
+        models.append(( LinearSVC(), 'Linear Support Vector Machine' ))
     metric_names = ['accuracy','weightedRecall','weightedPrecision','f1']
     evaluate_models(models,train,test,metric_file_path,MulticlassClassificationEvaluator,metric_names)
-
+    
 def run_regression_models(train,test,metric_file_path):
     """
     Modeling and metrics for regression models

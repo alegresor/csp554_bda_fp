@@ -1,0 +1,68 @@
+root
+ |-- gender: string (nullable = true)
+ |-- senior: string (nullable = true)
+ |-- partner: string (nullable = true)
+ |-- dependents: string (nullable = true)
+ |-- tenure: float (nullable = true)
+ |-- phone_service: string (nullable = true)
+ |-- multiple_lines: string (nullable = true)
+ |-- internet: string (nullable = true)
+ |-- security: string (nullable = true)
+ |-- backup: string (nullable = true)
+ |-- protection: string (nullable = true)
+ |-- support: string (nullable = true)
+ |-- tv: string (nullable = true)
+ |-- movies: string (nullable = true)
+ |-- contract: string (nullable = true)
+ |-- paperless: string (nullable = true)
+ |-- method: string (nullable = true)
+ |-- monthly: float (nullable = true)
+ |-- churn: string (nullable = true)
+ |-- months: float (nullable = true)
+
++------+------+-------+----------+------+-------------+----------------+-----------+--------+------+----------+-------+---+------+--------------+---------+--------------------+-------+-----+---------+
+|gender|senior|partner|dependents|tenure|phone_service|  multiple_lines|   internet|security|backup|protection|support| tv|movies|      contract|paperless|              method|monthly|churn|   months|
++------+------+-------+----------+------+-------------+----------------+-----------+--------+------+----------+-------+---+------+--------------+---------+--------------------+-------+-----+---------+
+|Female|     0|    Yes|        No|   1.0|           No|No phone service|        DSL|      No|   Yes|        No|     No| No|    No|Month-to-month|      Yes|    Electronic check|  29.85|   No|      1.0|
+|  Male|     0|     No|        No|  34.0|          Yes|              No|        DSL|     Yes|    No|       Yes|     No| No|    No|      One year|       No|        Mailed check|  56.95|   No|33.178226|
+|  Male|     0|     No|        No|   2.0|          Yes|              No|        DSL|     Yes|   Yes|        No|     No| No|    No|Month-to-month|      Yes|        Mailed check|  53.85|  Yes|2.0083566|
+|  Male|     0|     No|        No|  45.0|           No|No phone service|        DSL|     Yes|    No|       Yes|    Yes| No|    No|      One year|       No|Bank transfer (au...|   42.3|   No| 43.51655|
+|Female|     0|     No|        No|   2.0|          Yes|              No|Fiber optic|      No|    No|        No|     No| No|    No|Month-to-month|      Yes|    Electronic check|   70.7|  Yes|2.1449788|
++------+------+-------+----------+------+-------------+----------------+-----------+--------+------+----------+-------+---+------+--------------+---------+--------------------+-------+-----+---------+
+only showing top 5 rows
+
+Logistic Regression
+	       accuracy: 0.812
+	 weightedRecall: 0.812
+	weightedPrecision: 0.803
+	             f1: 0.804
+Decision Tree
+	       accuracy: 0.782
+	 weightedRecall: 0.782
+	weightedPrecision: 0.779
+	             f1: 0.781
+Random Forest
+	       accuracy: 0.792
+	 weightedRecall: 0.792
+	weightedPrecision: 0.779
+	             f1: 0.769
+One vs Rest
+	       accuracy: 0.812
+	 weightedRecall: 0.812
+	weightedPrecision: 0.803
+	             f1: 0.804
+Naive Bayes
+	       accuracy: 0.710
+	 weightedRecall: 0.710
+	weightedPrecision: 0.773
+	             f1: 0.725
+Gradient Boosted Trees
+	       accuracy: 0.798
+	 weightedRecall: 0.798
+	weightedPrecision: 0.788
+	             f1: 0.790
+Linear Support Vector Machine
+	       accuracy: 0.803
+	 weightedRecall: 0.803
+	weightedPrecision: 0.793
+	             f1: 0.795
