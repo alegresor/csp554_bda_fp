@@ -1,7 +1,6 @@
 ''' Clean dataset with spark sql '''
 
 from pyspark.sql import SparkSession
-from pyspark.sql.types import *
 import pyspark.sql.functions as f
 from spark_pkg.util.sql import summarize_df
 
