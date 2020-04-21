@@ -15,3 +15,6 @@ python spark_pkg/telco/mllib.py > spark_pkg/telco/logs/mllib.log
 
 # auto 
 python spark_pkg/auto/mllib.py > spark_pkg/auto/logs/mllib.log
+
+# housing
+python spark_pkg/housing/mllib.py > spark_pkg/housing/logs/mllib.log
