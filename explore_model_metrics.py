@@ -2,25 +2,20 @@
 
 import numpy as np
 import pandas as pd 
-from matplotlib import pyplot
-
-df_iris = pd.read_csv('data/iris/iris_model_metrics.csv')
-df_turtles = pd.read_csv('data/turtles/turtle_model_metrics.csv')
+import seaborn as sns 
+sns.set(style='whitegrid')
 
 def multiple_bar_plot(df,dataset):
-    n = len(df.columns)-1
-    idx = np.arange(n)
-    width = .25
-    fig,ax = pyplot.subplots()
-    for i in range(len(df)):
-        vals = df.iloc[i,1:]
-        ax.bar(idx+i*width,vals,width,label=df.iloc[i,0])
-    for spine in ['top','right','left','bottom']: ax.spines[spine].set_visible(False)
-    ax.set_xticks(idx+width)
-    ax.set_xticklabels(list(df.columns)[1:])
-    ax.legend(frameon=False,loc=(0,1),ncol=len(df))
-    fig.suptitle('%s Dataset MLlib Model Metrics'%dataset)
-    pyplot.savefig('out/metrics_bar_chart.%s.png'%dataset.lower(),dpi=200)
+    df = pd.melt(df,id_vars='model',var_name='metric')
+    plt = sns.catplot(x='metric',y='value',hue='model',data=df,kind='bar')
+    plt.set(title='Model Metrics for %s Dataset'%dataset,ylabel='metric',xlabel='')
+    #plt.despine()
+    plt.set_xticklabels(rotation=45)
+    plt.savefig('out/bar_chart_metrics/%s.png'%dataset.lower())
 
-multiple_bar_plot(df_iris,'Iris')
-multiple_bar_plot(df_turtles,'Turtles')
+
+datasets = ['Auto','Housing','Wine','Iris','Telco','Turtles']
+for dataset in datasets:
+    name = dataset.lower()
+    df = pd.read_csv('data/%s/%s_model_metrics.csv'%(name,name))
+    multiple_bar_plot(df,dataset)
