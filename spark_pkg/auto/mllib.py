@@ -2,7 +2,7 @@
 
 from pyspark.sql import SparkSession
 from spark_pkg.util.sql import summarize_df
-import pyspark.sql.functions as f
+from pyspark.ml.feature import Imputer
 from pyspark.sql.types import *
 from spark_pkg.util.mllib import encode_data, run_regression_models
 
@@ -29,7 +29,9 @@ df.show(5)
 df = df.filter((df['cylinders']!='3') & (df['cylinders']!='5'))
 
 # fill missing horsepower values with column mean 
-df = df.na.fill(df.na.drop().agg(f.avg('horsepower')).first()[0],'horsepower')
+imputer = Imputer(strategy='mean',inputCols=['horsepower'],outputCols=['horsepower'])
+model = imputer.fit(df)
+df = model.transform(df)
 
 # drop car_name, the unique id column 
 df = df.drop('car_name')
