@@ -55,9 +55,9 @@ col: horsepower
 +-------+------------------+
 |summary|        horsepower|
 +-------+------------------+
-|  count|               385|
-|   mean|104.69610389610389|
-| stddev|38.756633980380414|
+|  count|               391|
+|   mean|104.69610392772938|
+| stddev| 38.45735047462061|
 |    min|              46.0|
 |    max|             230.0|
 +-------+------------------+
@@ -116,7 +116,7 @@ root
  |-- label: float (nullable = true)
  |-- cylinders: string (nullable = true)
  |-- displacement: float (nullable = true)
- |-- horsepower: float (nullable = false)
+ |-- horsepower: float (nullable = true)
  |-- weight: float (nullable = true)
  |-- acceleration: float (nullable = true)
  |-- model_year: string (nullable = true)
@@ -148,19 +148,26 @@ root
 +-----+---------+------------+----------+------+------------+----------+------+
 only showing top 20 rows
 
-Linear Regression by Cross Validation
-	             r2: 0.871
-	           rmse: 2.866
-	            mae: 2.240
+Linear Regression
+	 Best regParam (lambda): 0.25
+	 Best elasticNetparam (alpha): 0.00
+	 r2: 0.853
+	 rmse: 3.018
+	 mae: 2.393
 Decision Tree
-	             r2: 0.697
-	           rmse: 4.393
-	            mae: 3.199
+	 Best maxDepth: 10
+	 Best maxBins: 8
+	 r2: 0.779
+	 rmse: 3.701
+	 mae: 2.422
 Random Forest
-	             r2: 0.840
-	           rmse: 3.195
-	            mae: 2.388
+	 Best maxDepth: 10
+	 Best maxBins: 32
+	 Best numTrees: 20
+	 r2: 0.812
+	 rmse: 3.414
+	 mae: 2.247
 Gradient Boosted Trees
-	             r2: 0.717
-	           rmse: 4.246
-	            mae: 2.883
+	 r2: 0.703
+	 rmse: 4.285
+	 mae: 2.845

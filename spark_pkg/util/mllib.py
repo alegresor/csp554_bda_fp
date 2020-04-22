@@ -157,7 +157,7 @@ def run_classification_models(train,test,metric_file_path,classes):
     metric_names = ['accuracy','weightedRecall','weightedPrecision']
     f = open(metric_file_path,'w')
     f.write('model,'+','.join(metric_names)+'\n')
-    name = 'Logisitic Regression'
+    name = 'Logistic Regression'
     model = LogisticRegression()
     param_grid = ParamGridBuilder()\
         .addGrid(model.regParam,[0,.25,.5]) \

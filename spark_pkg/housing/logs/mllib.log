@@ -219,19 +219,26 @@ root
 +-------+----+-----+----+-----+-----+-----+------+---+-----+-------+------+-----+-----+
 only showing top 20 rows
 
-Linear Regression by Cross Validation
-	             r2: 0.695
-	           rmse: 4.298
-	            mae: 3.100
+Linear Regression
+	 Best regParam (lambda): 0.50
+	 Best elasticNetparam (alpha): 0.00
+	 r2: 0.695
+	 rmse: 4.296
+	 mae: 3.026
 Decision Tree
-	             r2: 0.675
-	           rmse: 4.440
-	            mae: 2.841
+	 Best maxDepth: 5
+	 Best maxBins: 32
+	 r2: 0.675
+	 rmse: 4.440
+	 mae: 2.841
 Random Forest
-	             r2: 0.839
-	           rmse: 3.125
-	            mae: 2.238
+	 Best maxDepth: 10
+	 Best maxBins: 32
+	 Best numTrees: 10
+	 r2: 0.830
+	 rmse: 3.210
+	 mae: 2.217
 Gradient Boosted Trees
-	             r2: 0.684
-	           rmse: 4.375
-	            mae: 2.654
+	 r2: 0.684
+	 rmse: 4.375
+	 mae: 2.654

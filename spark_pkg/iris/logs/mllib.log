@@ -17,27 +17,29 @@ root
 only showing top 5 rows
 
 Logistic Regression
-	       accuracy: 1.000
+	 Best regParam (lambda): 0.00
+	 Best elasticNetparam (alpha): 0.00
+	 accuracy: 1.000
 	 weightedRecall: 1.000
-	weightedPrecision: 1.000
-	             f1: 1.000
+	 weightedPrecision: 1.000
 Decision Tree
-	       accuracy: 0.957
+	 Best maxDepth: 5
+	 Best maxBins: 32
+	 accuracy: 0.957
 	 weightedRecall: 0.957
-	weightedPrecision: 0.957
-	             f1: 0.957
+	 weightedPrecision: 0.957
 Random Forest
-	       accuracy: 0.979
+	 Best maxDepth: 5
+	 Best numTrees: 10
+	 accuracy: 0.979
 	 weightedRecall: 0.979
-	weightedPrecision: 0.980
-	             f1: 0.979
+	 weightedPrecision: 0.980
 One vs Rest
-	       accuracy: 0.979
+	 accuracy: 0.979
 	 weightedRecall: 0.979
-	weightedPrecision: 0.980
-	             f1: 0.979
+	 weightedPrecision: 0.980
 Naive Bayes
-	       accuracy: 0.979
-	 weightedRecall: 0.979
-	weightedPrecision: 0.980
-	             f1: 0.979
+	 Best smoothing: 2.0
+	 accuracy: 0.957
+	 weightedRecall: 0.957
+	 weightedPrecision: 0.957

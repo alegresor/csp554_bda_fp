@@ -32,37 +32,37 @@ root
 only showing top 5 rows
 
 Logistic Regression
-	       accuracy: 0.812
+	 Best regParam (lambda): 0.00
+	 Best elasticNetparam (alpha): 0.00
+	 accuracy: 0.812
 	 weightedRecall: 0.812
-	weightedPrecision: 0.803
-	             f1: 0.804
+	 weightedPrecision: 0.803
 Decision Tree
-	       accuracy: 0.782
-	 weightedRecall: 0.782
-	weightedPrecision: 0.779
-	             f1: 0.781
+	 Best maxDepth: 5
+	 Best maxBins: 8
+	 accuracy: 0.786
+	 weightedRecall: 0.786
+	 weightedPrecision: 0.773
 Random Forest
-	       accuracy: 0.792
-	 weightedRecall: 0.792
-	weightedPrecision: 0.779
-	             f1: 0.769
+	 Best maxDepth: 10
+	 Best numTrees: 20
+	 accuracy: 0.796
+	 weightedRecall: 0.796
+	 weightedPrecision: 0.785
 One vs Rest
-	       accuracy: 0.812
+	 accuracy: 0.812
 	 weightedRecall: 0.812
-	weightedPrecision: 0.803
-	             f1: 0.804
+	 weightedPrecision: 0.803
 Naive Bayes
-	       accuracy: 0.710
+	 Best smoothing: 0.5
+	 accuracy: 0.710
 	 weightedRecall: 0.710
-	weightedPrecision: 0.773
-	             f1: 0.725
+	 weightedPrecision: 0.773
 Gradient Boosted Trees
-	       accuracy: 0.798
+	 accuracy: 0.798
 	 weightedRecall: 0.798
-	weightedPrecision: 0.788
-	             f1: 0.790
+	 weightedPrecision: 0.788
 Linear Support Vector Machine
-	       accuracy: 0.803
+	 accuracy: 0.803
 	 weightedRecall: 0.803
-	weightedPrecision: 0.793
-	             f1: 0.795
+	 weightedPrecision: 0.793
