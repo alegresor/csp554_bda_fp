@@ -2,10 +2,11 @@
 
 from pyspark.ml.feature import OneHotEncoderEstimator, StringIndexer, VectorAssembler
 from pyspark.ml import Pipeline
+from pyspark.ml.tuning import CrossValidator,ParamGridBuilder
 from pyspark.ml.regression import *
 from pyspark.ml.classification import *
-from pyspark.ml.tuning import CrossValidator,ParamGridBuilder,TrainValidationSplit
-from pyspark.ml.evaluation import MulticlassClassificationEvaluator,RegressionEvaluator
+from pyspark.ml.evaluation import *
+from numpy import arange
 
 def encode_data(df, categorical_cols, numeric_cols, predict_col, encode_predict_col):
     """
@@ -44,29 +45,96 @@ def encode_data(df, categorical_cols, numeric_cols, predict_col, encode_predict_
     df = df.select(selectedCols)
     return df
 
-def evaluate_models(models,train,test,metric_file_path,Evaluator,metric_names):
+def eval_model(f,model_name,model,test,evaluator,metric_names):
     """
-    Evaluate list of models
+    Evaluate models
     Args:
-        models (list): list of models s.t. 
-            predictions = models[i][0].transform(test)
-            model_name = models[i][1]
+        f (File): file to write to
+        model_name (str): name of this model
+        model: model to evaluate
+        test (DataFrame): testing dataset
+        evaluator (from pyspark.ml.evaluation): handle of an evaluator
+        metric_names (list): list of metric names for evaluator to evaluate
+    """
+    metric_vals = [None]*len(metric_names)
+    predictions = model.transform(test)
+    for i in range(len(metric_names)):
+        metric_vals[i] = evaluator(metricName=metric_names[i]).evaluate(predictions)
+        print '\t %s: %.3f'%(metric_names[i],metric_vals[i])
+    f.write(model_name+','+','.join(str(val) for val in metric_vals)+'\n')
+    
+def run_regression_models(train,test,metric_file_path):
+    """
+    Modeling and metrics for regression models
+    Args:
         train (DataFrame): training dataset
         test (DataFrame): testing dataset
         metric_file_path (str): path to file to output metrics
-        Evaluator (from pyspark.ml.evaluation): handle of an evaluator
-        metric_names (list): list of metric names for evaluator to evaluate
+    Notes:
+        - Did not train IsotonicRegression is it requires wieghts column
+        which does not generalize well to our vanilla/black-box testing
+        - Did not use cross validation for Gradient Boosted Trees
+        as these models were taking a very long time to train 
     """
+    metric_names = ['r2','rmse','mae']
     f = open(metric_file_path,'w')
     f.write('model,'+','.join(metric_names)+'\n')
-    for model,model_name in models:
-        metric_vals = [None]*len(metric_names)
-        predictions = model.fit(train).transform(test)
-        print model_name
-        for i in range(len(metric_names)):
-            metric_vals[i] = Evaluator(metricName=metric_names[i]).evaluate(predictions)
-            print '\t%15s: %.3f'%(metric_names[i],metric_vals[i])
-        f.write(model_name+','+','.join(str(val) for val in metric_vals)+'\n')
+    name = 'Linear Regression'
+    model = LinearRegression(maxIter=10)
+    param_grid = ParamGridBuilder()\
+        .addGrid(model.regParam,[0,.25,.5]) \
+        .addGrid(model.elasticNetParam,[0,.25,.5])\
+        .build()
+    model_cv = CrossValidator(
+        estimator = model,
+        estimatorParamMaps = param_grid,
+        evaluator = RegressionEvaluator(),
+        numFolds = 3,
+        seed = 7).fit(train)
+    best_model = model_cv.bestModel
+    print name
+    print '\t Best regParam (lambda): %.2f'%best_model._java_obj.getRegParam()
+    print '\t Best elasticNetparam (alpha): %.2f'%best_model._java_obj.getElasticNetParam()
+    eval_model(f,name,model_cv,test,RegressionEvaluator,metric_names)
+    name = 'Decision Tree'
+    model = DecisionTreeRegressor(seed=7)
+    param_grid = ParamGridBuilder()\
+        .addGrid(model.maxDepth,[5,10,15]) \
+        .addGrid(model.maxBins,[8,16,32])\
+        .build()
+    model_cv = CrossValidator(
+        estimator = model,
+        estimatorParamMaps = param_grid,
+        evaluator = RegressionEvaluator(),
+        numFolds = 3,
+        seed = 7).fit(train)
+    best_model = model_cv.bestModel  
+    print name
+    print '\t Best maxDepth: %d'%best_model._java_obj.getMaxDepth()
+    print '\t Best maxBins: %d'%best_model._java_obj.getMaxBins()
+    eval_model(f,name,model_cv,test,RegressionEvaluator,metric_names)
+    name = 'Random Forest'
+    model = RandomForestRegressor(seed=7)
+    param_grid = ParamGridBuilder()\
+        .addGrid(model.maxDepth,[5,10,15]) \
+        .addGrid(model.numTrees,[10,15,20])\
+        .build()
+    model_cv = CrossValidator(
+        estimator = model,
+        estimatorParamMaps = param_grid,
+        evaluator = RegressionEvaluator(),
+        numFolds = 3,
+        seed = 7).fit(train)
+    best_model = model_cv.bestModel  
+    print name
+    print '\t Best maxDepth: %d'%best_model._java_obj.getMaxDepth()
+    print '\t Best maxBins: %d'%best_model._java_obj.getMaxBins()
+    print '\t Best numTrees: %d'%best_model._java_obj.getNumTrees()
+    eval_model(f,name,model_cv,test,RegressionEvaluator,metric_names)
+    name = 'Gradient Boosted Trees'
+    model = GBTRegressor(seed=7).fit(train)
+    print name
+    eval_model(f,name,model,test,RegressionEvaluator,metric_names)
     f.close()
 
 def run_classification_models(train,test,metric_file_path,classes):
@@ -77,45 +145,95 @@ def run_classification_models(train,test,metric_file_path,classes):
         test (DataFrame): testing dataset
         metric_file_path (str): path to file to output metrics
         classes (int): number of unique labels
-    Note:
-        Did not train MultilayerPerceptronClassifier is it requires feature size and output
+    Notes:
+        - Did not train MultilayerPerceptronClassifier is it requires feature size and output
         size and therefore does not generalize well to our vanilla/black-box testing
+        - Should use BinaryClassificationEvaluator if classes==2 rather than MulticlassClassiicaitonEvaluator.
+        However, using the later allows for uniform metrics across all models and does *not* 
+        misrepresent binary classification metrics.
+        - Did not use cross validation for One Vs Rest, Gradient Boosted Trees, or Linear Support Vector Machine
+        as these models were taking a very long time to train 
     """
-    models = []
-    models.append(( LogisticRegression(), 'Logistic Regression' ))
-    models.append(( DecisionTreeClassifier(seed=7), 'Decision Tree' ))
-    models.append(( RandomForestClassifier(seed=7), 'Random Forest' ))
-    models.append(( OneVsRest(classifier=LogisticRegression()), 'One vs Rest' ))
-    models.append(( NaiveBayes(), 'Naive Bayes' ))
-    if classes==2:
-        models.append(( GBTClassifier(seed=7), 'Gradient Boosted Trees' ))
-        models.append(( LinearSVC(), 'Linear Support Vector Machine' ))
-    metric_names = ['accuracy','weightedRecall','weightedPrecision','f1']
-    evaluate_models(models,train,test,metric_file_path,MulticlassClassificationEvaluator,metric_names)
-    
-def run_regression_models(train,test,metric_file_path):
-    """
-    Modeling and metrics for regression models
-    Args:
-        train (DataFrame): training dataset
-        test (DataFrame): testing dataset
-        metric_file_path (str): path to file to output metrics
-    Note:
-        Did not train IsotonicRegression is it requires wieghts column
-        which does not generalize well to our vanilla/black-box testing
-    """
-    models = []
-    # linear regression with cross validation
-    lr = LinearRegression(maxIter=10)
-    paramGrid = ParamGridBuilder()\
-        .addGrid(lr.regParam, [0.001,0.001,.05]) \
-        .addGrid(lr.fitIntercept, [False, True])\
-        .addGrid(lr.elasticNetParam,[0.0, 0.05, 1.0])\
+    metric_names = ['accuracy','weightedRecall','weightedPrecision']
+    f = open(metric_file_path,'w')
+    f.write('model,'+','.join(metric_names)+'\n')
+    name = 'Logisitic Regression'
+    model = LogisticRegression()
+    param_grid = ParamGridBuilder()\
+        .addGrid(model.regParam,[0,.25,.5]) \
+        .addGrid(model.elasticNetParam,[0,.25,.5])\
         .build()
-    tvs = TrainValidationSplit(estimator=lr,estimatorParamMaps=paramGrid,evaluator=RegressionEvaluator(),seed=7)
-    models.append(( tvs, 'Linear Regression by Cross Validation' ))
-    models.append(( DecisionTreeRegressor(seed=7), 'Decision Tree' ))
-    models.append(( RandomForestRegressor(seed=7), 'Random Forest' ))
-    models.append(( GBTRegressor(seed=7), 'Gradient Boosted Trees' ))
-    metric_names = ['r2','rmse','mae']
-    evaluate_models(models,train,test,metric_file_path,RegressionEvaluator,metric_names)
+    model_cv = CrossValidator(
+        estimator = model,
+        estimatorParamMaps = param_grid,
+        evaluator = MulticlassClassificationEvaluator(),
+        numFolds = 3,
+        seed = 7).fit(train)
+    best_model = model_cv.bestModel
+    print name
+    print '\t Best regParam (lambda): %.2f'%best_model._java_obj.getRegParam()
+    print '\t Best elasticNetparam (alpha): %.2f'%best_model._java_obj.getElasticNetParam()
+    eval_model(f,name,model_cv,test,MulticlassClassificationEvaluator,metric_names)
+    name = 'Decision Tree'
+    model = DecisionTreeClassifier(seed=7)
+    param_grid = ParamGridBuilder()\
+        .addGrid(model.maxDepth,[5,10,15]) \
+        .addGrid(model.maxBins,[8,16,32])\
+        .build()
+    model_cv = CrossValidator(
+        estimator = model,
+        estimatorParamMaps = param_grid,
+        evaluator = MulticlassClassificationEvaluator(),
+        numFolds = 3,
+        seed = 7).fit(train)
+    best_model = model_cv.bestModel  
+    print name
+    print '\t Best maxDepth: %d'%best_model._java_obj.getMaxDepth()
+    print '\t Best maxBins: %d'%best_model._java_obj.getMaxBins()
+    eval_model(f,name,model_cv,test,MulticlassClassificationEvaluator,metric_names)
+    name = 'Random Forest'
+    model = RandomForestClassifier(seed=7)
+    param_grid = ParamGridBuilder()\
+        .addGrid(model.maxDepth,[5,10,15]) \
+        .addGrid(model.numTrees,[10,15,20])\
+        .build()
+    model_cv = CrossValidator(
+        estimator = model,
+        estimatorParamMaps = param_grid,
+        evaluator = MulticlassClassificationEvaluator(),
+        numFolds = 3,
+        seed = 7).fit(train)
+    best_model = model_cv.bestModel  
+    print name
+    print '\t Best maxDepth: %d'%best_model._java_obj.getMaxDepth()
+    print '\t Best numTrees: %d'%best_model._java_obj.getNumTrees()
+    eval_model(f,name,model_cv,test,MulticlassClassificationEvaluator,metric_names)
+    name = 'One vs Rest'
+    model = OneVsRest(classifier=LogisticRegression()).fit(train)
+    print name
+    eval_model(f,name,model,test,MulticlassClassificationEvaluator,metric_names)
+    name = 'Naive Bayes'
+    model = NaiveBayes()
+    param_grid = ParamGridBuilder()\
+        .addGrid(model.smoothing,[.5,1,2])\
+        .build()
+    model_cv = CrossValidator(
+        estimator = model,
+        estimatorParamMaps = param_grid,
+        evaluator = MulticlassClassificationEvaluator(),
+        numFolds = 3,
+        seed = 7).fit(train)
+    best_model = model_cv.bestModel  
+    print name
+    print '\t Best smoothing: %.1f'%best_model._java_obj.getSmoothing()
+    eval_model(f,name,model_cv,test,MulticlassClassificationEvaluator,metric_names)
+    if classes == 2:
+        name = 'Gradient Boosted Trees'
+        model = GBTClassifier(seed=7).fit(train)
+        print name
+        eval_model(f,name,model,test,MulticlassClassificationEvaluator,metric_names)
+        name = 'Linear Support Vector Machine'
+        model = LinearSVC().fit(train)
+        print name
+        eval_model(f,name,model,test,MulticlassClassificationEvaluator,metric_names)    
+    f.close()
