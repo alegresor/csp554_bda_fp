@@ -1,0 +1,5 @@
+model,accuracy,weightedRecall,weightedPrecision
+Linear Regression,0.62,5.43,3.57
+Decision Tree,0.69,4.91,3.04
+Random Forest,0.84,3.5,2.3
+Gradient Boosted Trees,0.87,3.19,2.13
