@@ -1,4 +1,4 @@
-''' Explore PySpark MLlib Models Metrics on Iris and Turtles Datasets '''
+''' Explore PySpark MLlib Models Metrics '''
 
 import numpy as np
 import pandas as pd 

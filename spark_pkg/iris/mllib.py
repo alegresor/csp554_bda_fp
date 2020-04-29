@@ -2,6 +2,7 @@
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
+from spark_pkg.util.sql import summarize_df
 from spark_pkg.util.mllib import encode_data, run_classification_models
 
 # setup
@@ -18,6 +19,7 @@ struct = StructType([
 df = spark.read.schema(struct).csv('data/iris/iris.csv',header=False)
 df.printSchema()
 df.show(5)
+summarize_df(spark,df,[col for col,dtype in df.dtypes if dtype=='float' and col])
 
 # one hot encoding
 df = encode_data(df,
