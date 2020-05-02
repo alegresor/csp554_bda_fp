@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+#modules to ignore warnings
+import sys
+import warnings
+
 #Importing modules to handle data
 import pandas as pd
 import numpy as np
@@ -8,10 +12,19 @@ import numpy as np
 #classification models 
 from utils import fit_classification_models
 
+#module for summarizing data
+from utils import summarize_data
+
 #module for splitting data into test and train
 from sklearn.model_selection import train_test_split
 
+#Disabling Warnings
+if not sys.warnoptions:
+    warnings.simplefilter("ignore")
+
 df = pd.read_csv('turtles.csv')
+
+print(df.head())
 
 # select subset of columns
 df = df[['Species', 'Dead_Alive', 'Gear', 'SCL_notch', 'SCL_tip', 'SCW', 'CCL_notch', 'TestLevel_Before', 'Entangled']]
@@ -61,7 +74,10 @@ for col in df.columns:
         print(df[col].value_counts())
     print ('\n')
 
-df.head()
+print(df.head(), end = '\n\n')
+
+classes = summarize_data(df, ['Dead_Alive', 'Gear', 'Entangled'], ['SCL_notch', 'SCL_tip', 'SCW', 'CCL_notch', 'TestLevel_Before'], 'Species', 
+    'classification')
 
 df.to_csv('turtles_clean.csv',index=False)
 
@@ -82,4 +98,4 @@ test_X = test[train.columns[1:]]
 test_y = test['Species']
 
 #fitiing classification models
-fit_classification_models(train_X, train_y, test_X, test_y, 'Turtles')
+fit_classification_models(train_X, train_y, test_X, test_y, 'Turtles', classes)

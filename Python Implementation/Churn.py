@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+#modules to ignore warnings
+import sys
+import warnings
+
 #Importing modules to handle data
 import pandas as pd
 import numpy as np
@@ -8,10 +12,27 @@ import numpy as np
 #module for splitting data into test and train
 from sklearn.model_selection import train_test_split
 
+#module for summarizing data
+from utils import summarize_data
+
 #classification models 
 from utils import fit_classification_models
 
+#Disabling Warnings
+if not sys.warnoptions:
+    warnings.simplefilter("ignore")
+
 df = pd.read_csv('WA_Fn-UseC_-Telco-Customer-Churn.csv')
+
+#Conerting text column to float
+df.loc[df['TotalCharges'] == ' ', 'TotalCharges'] = np.nan
+df['TotalCharges'] = pd.to_numeric(df['TotalCharges'])
+
+print(df.head(), sep = '\n\n')
+
+classes = summarize_data(df, ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService', 
+	'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV','StreamingMovies', 'Contract', 'PaperlessBilling', 
+	'PaymentMethod'], ['tenure', 'MonthlyCharges', 'TotalCharges'], 'Churn', 'classification')
 
 #Converting text to integers in columns
 df['Partner'] = df['Partner'].map({'Yes': 1, 'No': 0})
@@ -32,10 +53,6 @@ df['Contract'] = df['Contract'].map({'Month-to-month': 1, 'One year': 2, 'Two ye
 df = pd.concat([df, pd.get_dummies(df['gender']), pd.get_dummies(df['InternetService']), pd.get_dummies(df['PaymentMethod'])], axis = 1)
 df.drop(['gender', 'InternetService', 'PaymentMethod'], axis = 1, inplace = True)
 
-#Conerting text column to float
-df.loc[df['TotalCharges'] == ' ', 'TotalCharges'] = np.nan
-df['TotalCharges'] = pd.to_numeric(df['TotalCharges'])
-
 #filling missing values with mean
 df['TotalCharges'].fillna(df['TotalCharges'].mean(), inplace = True)
 
@@ -53,4 +70,4 @@ churn_train_X.drop('Churn', axis = 1, inplace = True)
 churn_test_X.drop('Churn', axis = 1, inplace = True)
 
 #fitiing classification models
-fit_classification_models(churn_train_X, churn_train_y, churn_test_X, Churn_test_y, 'Churn')
+fit_classification_models(churn_train_X, churn_train_y, churn_test_X, Churn_test_y, 'Churn', classes)

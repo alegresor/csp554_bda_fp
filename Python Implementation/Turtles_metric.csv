@@ -1,6 +1,6 @@
 model,accuracy,weightedRecall,weightedPrecision
-Logistic Regression,0.98,0.98,0.98
+Elastic Net,0.94,0.94,0.95
 Decision Tree,1.0,1.0,1.0
 Random Forest,1.0,1.0,1.0
-One vs Rest,0.93,0.93,0.88
+One vs Rest,0.94,0.94,0.95
 Naive Bayes,0.8,0.8,0.64

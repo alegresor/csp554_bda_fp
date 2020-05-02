@@ -1,4 +1,4 @@
-model,accuracy,weightedRecall,weightedPrecision
+model,r2,rmse,mae
 Linear Regression,0.29,0.74,0.57
 Decision Tree,0.31,0.73,0.56
 Random Forest,0.48,0.63,0.46
