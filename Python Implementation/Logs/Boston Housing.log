@@ -1,0 +1,177 @@
+      CRIM    ZN  INDUS  CHAS    NOX     RM   AGE     DIS  RAD  TAX  PTRATIO       B  LSTAT  MEDV
+0  0.00632  18.0   2.31     0  0.538  6.575  65.2  4.0900    1  296     15.3  396.90   4.98  24.0
+1  0.02731   0.0   7.07     0  0.469  6.421  78.9  4.9671    2  242     17.8  396.90   9.14  21.6
+2  0.02729   0.0   7.07     0  0.469  7.185  61.1  4.9671    2  242     17.8  392.83   4.03  34.7
+3  0.03237   0.0   2.18     0  0.458  6.998  45.8  6.0622    3  222     18.7  394.63   2.94  33.4
+4  0.06905   0.0   2.18     0  0.458  7.147  54.2  6.0622    3  222     18.7  396.90   5.33  36.2
+
+Predicted Column: MEDV
+count    506.000000
+mean      22.532806
+std        9.197104
+min        5.000000
+25%       17.025000
+50%       21.200000
+75%       25.000000
+max       50.000000
+Name: MEDV, dtype: float64
+
+Predictor Column: CHAS
+0    471
+1     35
+Name: CHAS, dtype: int64
+
+Predictor Column: RAD
+24    132
+5     115
+4     110
+3      38
+6      26
+8      24
+2      24
+1      20
+7      17
+Name: RAD, dtype: int64
+
+Predictor Column: CRIM
+count    506.000000
+mean       3.613524
+std        8.601545
+min        0.006320
+25%        0.082045
+50%        0.256510
+75%        3.677082
+max       88.976200
+Name: CRIM, dtype: float64
+
+Predictor Column: ZN
+count    506.000000
+mean      11.363636
+std       23.322453
+min        0.000000
+25%        0.000000
+50%        0.000000
+75%       12.500000
+max      100.000000
+Name: ZN, dtype: float64
+
+Predictor Column: INDUS
+count    506.000000
+mean      11.136779
+std        6.860353
+min        0.460000
+25%        5.190000
+50%        9.690000
+75%       18.100000
+max       27.740000
+Name: INDUS, dtype: float64
+
+Predictor Column: NOX
+count    506.000000
+mean       0.554695
+std        0.115878
+min        0.385000
+25%        0.449000
+50%        0.538000
+75%        0.624000
+max        0.871000
+Name: NOX, dtype: float64
+
+Predictor Column: RM
+count    506.000000
+mean       6.284634
+std        0.702617
+min        3.561000
+25%        5.885500
+50%        6.208500
+75%        6.623500
+max        8.780000
+Name: RM, dtype: float64
+
+Predictor Column: AGE
+count    506.000000
+mean      68.574901
+std       28.148861
+min        2.900000
+25%       45.025000
+50%       77.500000
+75%       94.075000
+max      100.000000
+Name: AGE, dtype: float64
+
+Predictor Column: DIS
+count    506.000000
+mean       3.795043
+std        2.105710
+min        1.129600
+25%        2.100175
+50%        3.207450
+75%        5.188425
+max       12.126500
+Name: DIS, dtype: float64
+
+Predictor Column: TAX
+count    506.000000
+mean     408.237154
+std      168.537116
+min      187.000000
+25%      279.000000
+50%      330.000000
+75%      666.000000
+max      711.000000
+Name: TAX, dtype: float64
+
+Predictor Column: PTRATIO
+count    506.000000
+mean      18.455534
+std        2.164946
+min       12.600000
+25%       17.400000
+50%       19.050000
+75%       20.200000
+max       22.000000
+Name: PTRATIO, dtype: float64
+
+Predictor Column: B
+count    506.000000
+mean     356.674032
+std       91.294864
+min        0.320000
+25%      375.377500
+50%      391.440000
+75%      396.225000
+max      396.900000
+Name: B, dtype: float64
+
+Predictor Column: LSTAT
+count    506.000000
+mean      12.653063
+std        7.141062
+min        1.730000
+25%        6.950000
+50%       11.360000
+75%       16.955000
+max       37.970000
+Name: LSTAT, dtype: float64
+
+Linear Regression
+         Best alpha: 0
+         Best l1_ratio: 0
+         r2: 0.603
+         rmse: 5.531
+         mae: 3.605
+Decision Tree
+         Best max_depth: 5
+         r2: 0.688
+         rmse: 4.907
+         mae: 3.045
+Random Forest
+         Best max_depth: 15
+         Best n_estimators: 20
+         r2: 0.841
+         rmse: 3.5
+         mae: 2.303
+Gradient Boosted Trees
+         r2: 0.868
+         rmse: 3.193
+         mae: 2.131

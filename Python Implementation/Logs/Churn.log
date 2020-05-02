@@ -1,0 +1,172 @@
+   customerID  gender  SeniorCitizen Partner Dependents  tenure PhoneService  ... StreamingMovies        Contract PaperlessBilling              PaymentMethod MonthlyCharges TotalCharges Churn
+0  7590-VHVEG  Female              0     Yes         No       1           No  ...              No  Month-to-month              Yes           Electronic check          29.85        29.85    No
+1  5575-GNVDE    Male              0      No         No      34          Yes  ...              No        One year               No               Mailed check          56.95      1889.50    No
+2  3668-QPYBK    Male              0      No         No       2          Yes  ...              No  Month-to-month              Yes               Mailed check          53.85       108.15   Yes
+3  7795-CFOCW    Male              0      No         No      45           No  ...              No        One year               No  Bank transfer (automatic)          42.30      1840.75    No
+4  9237-HQITU  Female              0      No         No       2          Yes  ...              No  Month-to-month              Yes           Electronic check          70.70       151.65   Yes
+
+[5 rows x 21 columns]
+Predicted Column: Churn
+count     7043
+unique       2
+top         No
+freq      5174
+Name: Churn, dtype: object
+
+Predictor Column: gender
+Male      3555
+Female    3488
+Name: gender, dtype: int64
+
+Predictor Column: SeniorCitizen
+0    5901
+1    1142
+Name: SeniorCitizen, dtype: int64
+
+Predictor Column: Partner
+No     3641
+Yes    3402
+Name: Partner, dtype: int64
+
+Predictor Column: Dependents
+No     4933
+Yes    2110
+Name: Dependents, dtype: int64
+
+Predictor Column: PhoneService
+Yes    6361
+No      682
+Name: PhoneService, dtype: int64
+
+Predictor Column: MultipleLines
+No                  3390
+Yes                 2971
+No phone service     682
+Name: MultipleLines, dtype: int64
+
+Predictor Column: InternetService
+Fiber optic    3096
+DSL            2421
+No             1526
+Name: InternetService, dtype: int64
+
+Predictor Column: OnlineSecurity
+No                     3498
+Yes                    2019
+No internet service    1526
+Name: OnlineSecurity, dtype: int64
+
+Predictor Column: OnlineBackup
+No                     3088
+Yes                    2429
+No internet service    1526
+Name: OnlineBackup, dtype: int64
+
+Predictor Column: DeviceProtection
+No                     3095
+Yes                    2422
+No internet service    1526
+Name: DeviceProtection, dtype: int64
+
+Predictor Column: TechSupport
+No                     3473
+Yes                    2044
+No internet service    1526
+Name: TechSupport, dtype: int64
+
+Predictor Column: StreamingTV
+No                     2810
+Yes                    2707
+No internet service    1526
+Name: StreamingTV, dtype: int64
+
+Predictor Column: StreamingMovies
+No                     2785
+Yes                    2732
+No internet service    1526
+Name: StreamingMovies, dtype: int64
+
+Predictor Column: Contract
+Month-to-month    3875
+Two year          1695
+One year          1473
+Name: Contract, dtype: int64
+
+Predictor Column: PaperlessBilling
+Yes    4171
+No     2872
+Name: PaperlessBilling, dtype: int64
+
+Predictor Column: PaymentMethod
+Electronic check             2365
+Mailed check                 1612
+Bank transfer (automatic)    1544
+Credit card (automatic)      1522
+Name: PaymentMethod, dtype: int64
+
+Predictor Column: tenure
+count    7043.000000
+mean       32.371149
+std        24.559481
+min         0.000000
+25%         9.000000
+50%        29.000000
+75%        55.000000
+max        72.000000
+Name: tenure, dtype: float64
+
+Predictor Column: MonthlyCharges
+count    7043.000000
+mean       64.761692
+std        30.090047
+min        18.250000
+25%        35.500000
+50%        70.350000
+75%        89.850000
+max       118.750000
+Name: MonthlyCharges, dtype: float64
+
+Predictor Column: TotalCharges
+count    7032.000000
+mean     2283.300441
+std      2266.771362
+min        18.800000
+25%       401.450000
+50%      1397.475000
+75%      3794.737500
+max      8684.800000
+Name: TotalCharges, dtype: float64
+
+Linear Regression
+         Best alpha: 0.0001
+         Best l1_ratio: 0.5
+         accuracy: 0.78
+         weightedRecall: 0.78
+         weightedPrecision: 0.77
+Decision Tree
+         Best max_depth: 5
+         accuracy: 0.79
+         weightedRecall: 0.79
+         weightedPrecision: 0.79
+Random Forest
+         Best max_depth: 5
+         Best n_estimators: 10
+         accuracy: 0.8
+         weightedRecall: 0.8
+         weightedPrecision: 0.78
+One vs Rest
+         accuracy: 0.8
+         weightedRecall: 0.8
+         weightedPrecision: 0.79
+Naive Bayes
+         accuracy: 0.73
+         weightedRecall: 0.73
+         weightedPrecision: 0.53
+Gradient Boosting
+         accuracy: 0.81
+         weightedRecall: 0.81
+         weightedPrecision: 0.8
+Linear Support Vector Machine
+         accuracy: 0.73
+         weightedRecall: 0.73
+         weightedPrecision: 0.73
