@@ -1,0 +1,73 @@
+year,Year turtle was captured
+Turtle_ID,4-digit unique code assigned to turtle
+ResearchType,data are from the Index of Abundance project or any other tagging project involving Beaufort Lab staff (misc tagging)
+DateCapture,"day, month, and year turtle was captured"
+Species,species of sea turtle that was captured
+Master_tag,"unique identifying code assigned to each turtle, usually number/letter code from Inconel or PIT tag"
+Dead_Alive,current condition of turtle
+RecordType,if turtle was released or captured
+Inconel_Tag,6 digit number/letter code identifying inconel tag applied to turtle
+BodyArea,flipper to which Inconel tag is attached
+PIT_tag,10 digit number/letter code identifying Passive integrated transponder applied to turtle
+BodyArea_PIT,flipper into which PIT Tag was injected
+ObserverCode,3 letter code identifying observer handling turtle
+DateRelease,"day, month, and year turtle was released"
+Gear,fishing gear with which turtle was captured
+SCL_notch,straight carapace length measured from notch to tip in cm
+SCL_tip,straight carapace length measured from tip to tip in cm
+SCW,straight carapace width in cm
+CCL_notch,curved carapace length measured from notch to tip in cm
+CCL_tip,curved carapace length measured from tip to tip in cm
+CCW,curved carapace width in cm
+Circumference,body depth of turtle measured with tape measure in cm
+Girth,"body depth of turtle measured with calipers, at highest point of carapace in cm"
+Depth_mid,"body depth of turtle measured with calipers, at mid-point of carapace in cm"
+Tail,total length of tail in cm
+Weight,weight of turtle in kilograms
+Cap_Region,region (estuary or ocean) where turtle was captured
+Rel_Region,region (estuary or ocean) where turtle was released
+Cap_Longitude,Longitude of capture location
+Cap_Latitude,Latitude of capture location
+Rel_Longitude,Longitude of Release Location
+Rel_Latitude,Latitude Of Release Location
+HepTube_Before,Turtle ID assigned to blood collecting tube when sample collected immediately after turtle was onboard
+HepTube_After,Turtle ID assigned to blood collecting tube when sample collected within 30 min after turtle was onboard
+TestLevel_Before,testosterone level measured in blood sample collected immediately after turtle was onboard
+TestLevel_After,testosterone level measured in blood sample collected within 30 min after turtle was onboard
+Sex_Necropsy,sex of turtle determined by necropsy
+Lysis_tube_ID,Turtle ID written on tube containing blood sample in lysis solution for DNA analysis
+Skin_Biopsy_ID,Turtle ID written on tube containing skin sample for DNA analysis
+Haplotype,Haplotype assigned to turtle after DNA analysis
+Oxtetracyclene,was turtle injected with oxytetracyclene? Yes or No
+Health_Blood,Was blood collected for health assessment? Yes or No
+Satellite_tag,was a satellite tag attached to the turtle? Yes or No
+Holding_Facility,code/descriptor for facility if turtle was in rehabilitation
+Sex_laparoscopy,sex of turtle determined by laparoscopy
+Sex_Testosterone_Level_1,sex of turtle determined by testosterone level of blood sample collected immediately after turtle was onboard
+Sex_Testosterone_Level_2,sex of turtle determined by testosterone level of blood sample collected within 30 min after turtle was onboard
+State,State in which turtle was captured.
+Hematology,was blood collected for hematological analyses? True or False
+OC_OB,was blood collected to measure organochlorine (OC) and organobromine (OB) contaminants? True or False
+FH,was blood collected to measure fluorinated hydrocarbon contaminants? True or False
+Metals,was blood collected to measure metal contaminants? True or False
+SIA_skin,was skin collected for stable isotope analysis? True or False
+SIA_blood,was blood collected for stable isotope analysis? True or False
+SIA_bone,was bone collected for stable isotope analysis? True or False
+SIA_barnacles,were barnacles collected for stable isotope analysis? True or False
+SIA_scutes,were scutes collected for health analysis? Yes or no
+SIA_analyzed,were stable isotope samples analyzed? Yes or No
+Photos,were photos taken? True or False
+Scute,were scutes collected for health analysis? True or False
+Cloacal,was a cloacal swab taken? True or False
+Lesion,was a lesion swab taken? True or False
+Fat,was a fat sample taken? True or False
+Fecal,was a fecal sample collected? True or False
+Pathogens,was a pathogens sample collected? True or False
+PCV,Packed cell volume
+TS,Total solids
+Entangled,was the turtle entangled? True or False
+Imaging,was an image of turtle taken? True or False
+OrganBiopsy,was a biopsy of an organ taken? True or False
+LivingTag,was the turtle marked with a living tag? True or False
+RadioTag,was a radio tag attached to the turtle? True or False
+AcousticTag,was an acoustic tag attached to the turtle? True or False
