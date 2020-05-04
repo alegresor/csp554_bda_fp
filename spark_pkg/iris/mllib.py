@@ -32,4 +32,4 @@ df = encode_data(df,
 train,test = df.randomSplit([.75,.25], seed=7)
 
 # modeling
-run_classification_models(train,test,'data/iris/iris_model_metrics.csv',classes=3)
+run_classification_models(train,test,'spark_pkg/metrics/iris_metrics.csv',classes=3)

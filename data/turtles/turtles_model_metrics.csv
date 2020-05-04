@@ -1,2 +1,0 @@
-model,accuracy,weightedRecall,weightedPrecision
-Logistic Regression,0.988023952096,0.988023952096,0.987946138128

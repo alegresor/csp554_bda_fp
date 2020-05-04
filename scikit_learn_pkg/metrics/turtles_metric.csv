@@ -1,5 +1,5 @@
 model,accuracy,weightedRecall,weightedPrecision
-Elastic Net,0.8,0.8,0.69
+Elastic Net,0.83,0.83,0.78
 Decision Tree,1.0,1.0,1.0
 Random Forest,1.0,1.0,1.0
 One vs Rest,0.94,0.94,0.95

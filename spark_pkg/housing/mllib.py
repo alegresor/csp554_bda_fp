@@ -50,4 +50,4 @@ df = encode_data(df,
 train,test = df.randomSplit([.75,.25], seed=7)
 
 # modeling
-run_regression_models(train,test,'data/housing/housing_model_metrics.csv')
+run_regression_models(train,test,'spark_pkg/metrics/housing_metrics.csv')
