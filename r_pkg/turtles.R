@@ -117,4 +117,4 @@ modelmetric <- rbind(modelmetric, list("Naive Bayes", metric$accuracy, weightedR
                                        weightedPrecision(metric, confusion)),
                      stringsAsFactors=FALSE)
 
-write.csv(modelmetric,"r_pkg/metrics/turtle_metric.csv",row.names=F,quote=F)
+write.csv(modelmetric,"r_pkg/metrics/turtles_metric.csv",row.names=F,quote=F)

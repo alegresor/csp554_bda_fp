@@ -36,14 +36,15 @@ Run the command `pip install -r requirements.txt` to install necessary python pa
 - `*/sql.py` use sql to clean dataset
 - `*/mllib.py` use mllib to create classification or regression models
 - `*/logs/` output logs from *.py files
-- `mklogs.sh` make logs for all `sql.py` and `mllib.py` files for all datasets
-  - give file permission with command:  `chmod +x spark_pkg/mklogs.sh`
+- `metrics/` output metrics from models
+- `out/` output figures for this package
+
+`scikit_learn_pkg` & `r_pkg`
+- `*.py` clean and model dataset
+- `metrics/` output metrics from models
+- `out/` output figures for this package
 
 `explore_model_metrics.py` explore metrics output from various datasets and models
 
-`out/` outputs
-
-`depricated/`
-- `pandas_turtles.py` clean turtles dataset with pandas
-  - translated into `spark_pkg/sql_turtles.py`
-- `logs/` output logs from *.py files
+`mklogs.sh` make logs for all `sql.py` and `mllib.py` files for all datasets
+  - give file permission with command:  `chmod +x spark_pkg/mklogs.sh`

@@ -90,5 +90,5 @@ modelmetric <- rbind(modelmetric, list("Gradient Boosted Trees", cor(test$qualit
                                        sqrt(mean(error^2)), mean(abs(error))),
                      stringsAsFactors=FALSE)
 
-write.csv(modelmetric,"r_pkg/metrics/wine.csv",row.names=F,quote=F)
+write.csv(modelmetric,"r_pkg/metrics/wine_metric.csv",row.names=F,quote=F)
 

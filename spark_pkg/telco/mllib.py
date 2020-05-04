@@ -45,4 +45,4 @@ df = encode_data(df,
 train,test = df.randomSplit([.75,.25], seed=7)
 
 # modeling
-run_classification_models(train,test,'spark_pkg/metrics/telco_metrics.csv',classes=2)
+run_classification_models(train,test,'spark_pkg/metrics/telco_metric.csv',classes=2)
