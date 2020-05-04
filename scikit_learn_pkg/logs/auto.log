@@ -1,0 +1,122 @@
+    mpg  cylinders  displacement  horsepower  weight  acceleration  model_year  origin                   car_name
+0  18.0          8         307.0       130.0    3504          12.0          70       1  chevrolet chevelle malibu
+1  15.0          8         350.0       165.0    3693          11.5          70       1          buick skylark 320
+2  18.0          8         318.0       150.0    3436          11.0          70       1         plymouth satellite
+3  16.0          8         304.0       150.0    3433          12.0          70       1              amc rebel sst
+4  17.0          8         302.0       140.0    3449          10.5          70       1                ford torino
+
+
+Predicted Column: mpg
+count    398.000000
+mean      23.514573
+std        7.815984
+min        9.000000
+25%       17.500000
+50%       23.000000
+75%       29.000000
+max       46.600000
+Name: mpg, dtype: float64
+
+
+Predictor Column: cylinders
+4    204
+8    103
+6     84
+3      4
+5      3
+Name: cylinders, dtype: int64
+
+
+Predictor Column: model_year
+73    40
+78    36
+76    34
+82    31
+75    30
+81    29
+80    29
+79    29
+70    29
+77    28
+72    28
+71    28
+74    27
+Name: model_year, dtype: int64
+
+
+Predictor Column: origin
+1    249
+3     79
+2     70
+Name: origin, dtype: int64
+
+
+Predictor Column: displacement
+count    398.000000
+mean     193.425879
+std      104.269838
+min       68.000000
+25%      104.250000
+50%      148.500000
+75%      262.000000
+max      455.000000
+Name: displacement, dtype: float64
+
+
+Predictor Column: horsepower
+count    398.000000
+mean     104.469388
+std       38.199187
+min       46.000000
+25%       76.000000
+50%       95.000000
+75%      125.000000
+max      230.000000
+Name: horsepower, dtype: float64
+
+
+Predictor Column: weight
+count     398.000000
+mean     2970.424623
+std       846.841774
+min      1613.000000
+25%      2223.750000
+50%      2803.500000
+75%      3608.000000
+max      5140.000000
+Name: weight, dtype: float64
+
+
+Predictor Column: acceleration
+count    398.000000
+mean      15.568090
+std        2.757689
+min        8.000000
+25%       13.825000
+50%       15.500000
+75%       17.175000
+max       24.800000
+Name: acceleration, dtype: float64
+
+
+Linear Regression
+	 Best alpha: 0.00
+	 Best l1_ratio: 0.00
+	 r2: 0.793
+	 rmse: 3.329
+	 mae: 2.381
+Decision Tree
+	 Best max_depth: 5
+	 r2: 0.598
+	 rmse: 4.640
+	 mae: 2.953
+Random Forest
+	 Best max_depth: 15
+	 Best n_estimators: 20
+	 r2: 0.670
+	 rmse: 4.201
+	 mae: 2.784
+Gradient Boosted Trees
+	 r2: 0.739
+	 rmse: 3.737
+	 mae: 2.509

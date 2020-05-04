@@ -1,6 +1,0 @@
-model,accuracy,weightedRecall,weightedPrecision
-Elastic Net,0.76,0.76,0.82
-Decision Tree,0.92,0.92,0.92
-Random Forest,0.84,0.84,0.85
-One vs Rest,0.71,0.71,0.73
-Naive Bayes,0.84,0.84,0.85
